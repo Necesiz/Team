@@ -39,4 +39,3 @@ Heroku3
 telegram
 yt-dlp
 telethon
-shazam
