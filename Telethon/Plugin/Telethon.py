@@ -7,28 +7,6 @@ from telethon.tl.types import ChannelParticipantsAdmins
 from AylinRobot.config import Config
 from Telethon.Mesajlar import soz,  emoji, bayrag
 
-from telethon.sync import TelegramClient, events
-from shazam import recognize_song
-
-
-
-@client.on(events.NewMessage(pattern='/shazam'))
-async def shazam_song(event):
-    chat = await event.get_chat()
-    message = await event.get_reply_message()
-
-    if message.audio:
-        audio = await message.download_media()
-        song_info = recognize_song(audio)  # Assuming you have a function to recognize the song
-
-        if song_info:
-            await event.respond(f"Bu şarkı: {song_info['title']} - {song_info['artist']}")
-        else:
-            await event.respond("Şarkı tanınamadı.")
-    else:
-        await event.respond("Lütfen bir ses dosyası gönderin.")
-
-
 
 logging.basicConfig(
     level=logging.INFO,
