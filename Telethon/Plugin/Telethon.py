@@ -545,32 +545,6 @@ async def unpin(event):
 
 
 
-@client.on(events.ChatAction)
-async def handler(event):
-    if event.user_joined:
-        await event.reply(random.choice(userjoin))
-
-
-@client.on(events.ChatAction)
-async def handler(event):
-    if event.user_left:
-        await event.reply("Əla Birdə gəlmə")
-
-userjoin = (
-
-    "Xoş Gəldoin",
-    "Xoş Gəldin Gözəl İnsan", 
-    "Sənin Gəlişin Məni Sevindirdi", 
-    "Aramıza Xoş Gəldin",
-    "Partimizə Xoş Gəldin",
-    "Bayaqdan Səni Gözləyirəm",
-    "Xoşgəldin, Pizza gətirəcəyivi düşnürdük.",
-    "Xoşgəldin, Çıxacagsansa indidən çıx 😒.",
-)
-
-
-
-
 @client.on(events.NewMessage(pattern=f'@{Config.OWNER_NAME}'))
 @client.on(events.NewMessage(pattern='Huseyn'))
 @client.on(events.NewMessage(pattern='@Hesenov_H'))
