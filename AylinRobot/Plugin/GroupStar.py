@@ -19,6 +19,6 @@ async def gstart(_, message: Message):
 async def ghelp(_, message: Message):
     await message.reply_text(
         f"""**Salam hazirda aktif olaraq çalışıram kömək üçün aşağıda buttonu isdifadə edin!**""",
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Kömək", url=f"https://t.me/OldMultiBot?start")]])
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Kömək", url=f"https://t.me/MeryemRoBot?start")]])
     )
 
