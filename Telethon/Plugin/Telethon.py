@@ -20,7 +20,7 @@ bot_token = Config.BOT_TOKEN
 
 client = TelegramClient('client', api_id, api_hash).start(bot_token=bot_token)
 
-
+rehim = client
 anlik_calisan = []
  
 ozel_list = [2074934667]
