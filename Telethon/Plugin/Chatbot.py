@@ -28,6 +28,8 @@ import time
 from telethon.tl.functions.channels import GetParticipantsRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 
+isleyen = []
+
 
 @rehim.on(events.NewMessage(pattern="^/chatbot ?(.*)"))
 async def chatbot(event):
