@@ -197,6 +197,9 @@ class Translation(object):
 ║
 ║▻ 🔮 Istifadə: /bio
 ║▻ 📃 Açıqlama: Hazır Bio Nuz Üçün Sözlər Atar.
+║
+║▻ 🔮 Istifadə: /ship
+║▻ 📃 Açıqlama: Bot qrupda iki çift səcərək evlənmək faizini ölçür
 ╚═════════════════
 """
 
