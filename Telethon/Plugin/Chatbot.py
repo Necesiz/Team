@@ -28,6 +28,7 @@ import time
 from telethon.tl.functions.channels import GetParticipantsRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 
+from helpers.mesaj import salam, necesen, sagol, getdim, geldim, ban, fds, teamabasov, hardasan
 isleyen = []
 
 
