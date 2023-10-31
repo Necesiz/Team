@@ -212,8 +212,8 @@ class Translation(object):
 ║▻ 🔮 Istifadə: /info
 ║▻ 📃 Açıqlama: İstifadəçi haqqında məlumat verər
 ║
-║▻ 🔮 Istifadə: /alive
-║▻ 📃 Açıqlama: Botun işlək olduğunu yoxlayar.
+║▻ 🔮 Istifadə: /chatbot on/0ff
+║▻ 📃 Açıqlama: Botda söhbət modu aktiv edmək /chatbot on yazdiqda aktiv off yazdiqda deaktiv olur.
 ╚═════════════════
 """
 
