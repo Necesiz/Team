@@ -14,7 +14,7 @@ class Config:
    API_ID = int(os.getenv("API_ID", "23860620"))
    API_HASH = os.getenv("API_HASH", "347c94d92d0bbcfbc223651b73d71345")
    BOT_TOKEN = os.getenv("BOT_TOKEN", "7118958431:AAGKzEFm9WHnEFh2ZLlVGYrXyER_PKjGYLY")
-   BOT_USERNAME = os.environ.get("BOT_USERNAME", "OldMultiBot)
+   BOT_USERNAME = os.environ.get("BOT_USERNAME", "OldMultiBot")
    BOT_NAME = os.environ.get("BOT_NAME", "OLD MULTİ BOT")   
    OWNER_ID = int(os.environ.get("OWNER_ID","6413040743"))
    OWNER_NAME = os.environ.get("OWNER_NAME", "Tanimiramkimem") 
