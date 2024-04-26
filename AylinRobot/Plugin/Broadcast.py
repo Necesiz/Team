@@ -31,7 +31,7 @@ def broadcast_command(_, message):
 
 
 # Broadcast mesajını işleme
-@app.on_message(filters.private & ~filters.command)
+@app.on_message(filters.command("stats") & filters.private)
 def handle_broadcast(_, message):
     if app.get("broadcast_mode", False):
         users = users_collection.find()
