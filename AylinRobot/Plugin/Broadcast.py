@@ -31,16 +31,16 @@ def broadcast_command(_, message):
 
 
 # Broadcast mesajını işleme
-@app.on_message(filters.command("stats") & filters.private)
+@app.on_message(filters.command("bcast") & filters.private)
 def handle_broadcast(_, message):
-    if app.get("broadcast_mode", False):
+    if app.set("broadcast_mode", False):
         users = users_collection.find()
         for user in users:
             try:
                 app.send_message(user["_id"], message.text)
             except Exception as e:
                 print(f"Hata: {e}")
-        message.reply_text("Yayın tamamlandı!")
+        message.reply_text("Yayın tamamlandı.!")
         app.set("broadcast_mode", False)
 
 
