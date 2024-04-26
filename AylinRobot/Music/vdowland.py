@@ -9,52 +9,46 @@ import os
 
 
 
-# TikTok video indirme işlevi
-def download_tiktok_video(url):
-    # TikTok video bağlantısını kullanarak videoyu indir
-    response = requests.get(url)
+# Web sitesinden skorları alacak URL
+score_url = "https://example.com/live_scores"
+
+# Pyrogram istemcisini oluşturun
+
+
+# Skorları almak için bir fonksiyon
+def get_live_scores():
+    response = requests.get(score_url)
     if response.status_code == 200:
-        video_url = response.json()["itemInfo"]["itemStruct"]["video"]["downloadAddr"]
-        video_data = requests.get(video_url).content
-        return video_data
+        return response.json()
     else:
         return None
 
 
-# Instagram video indirme işlevi
-def download_instagram_video(url):
-    # Instagram video bağlantısını kullanarak videoyu indir
-    response = requests.get(url)
-    if response.status_code == 200:
-        video_url = response.text.split('"')[4]
-        video_data = requests.get(video_url).content
-        return video_data
+# Günün ve önemli maçları gönderme işlevi
+def send_today_scores():
+    scores = get_live_scores()
+    if scores:
+        # Burada dönen JSON verisini analiz ederek istediğiniz şekilde düzenleyebilirsiniz
+        # Örneğin, belirli bir formatta maç bilgileri alıp kullanıcılara gönderebilirsiniz
+        today_scores = "Günün ve önemli maçlar:\n"
+        for match in scores:
+            today_scores += f"{match['home_team']} {match['home_score']} - {match['away_score']} {match['away_team']}\n"
+        
+        # Sonucu döndür
+        return today_scores
     else:
-        return None
+        return "Skor bilgileri alınamadı."
 
 
+# /start komutunu işleme
+
+# /scores komutunu işleme
+@app.on_message(filters.command("scores"))
+def scores_command(_, message):
+    today_scores = send_today_scores()
+    message.reply_text(today_scores)
 
 
-
-# Video bağlantısını işleme
-@app.on_message(filters.text & filters.private)
-def handle_video_link(_, message: Message):
-    text = message.text.strip()
-
-    # TikTok veya Instagram video bağlantısı olup olmadığını kontrol edin
-    if "tiktok.com" in text:
-        video_data = download_tiktok_video(text)
-        if video_data:
-            message.reply_video(video_data)
-        else:
-            message.reply_text("Üzgünüm, TikTok video indirilemedi.")
-    elif "instagram.com" in text:
-        video_data = download_instagram_video(text)
-        if video_data:
-            message.reply_video(video_data)
-        else:
-            message.reply_text("Üzgünüm, Instagram video indirilemedi.")
-    else:
-        message.reply_text("Geçersiz video bağlantısı. Lütfen TikTok veya Instagram video bağlantısı paylaşın.")
-
-
+# Botu çalıştırma
+if __name__ == "__main__":
+    app.run()
