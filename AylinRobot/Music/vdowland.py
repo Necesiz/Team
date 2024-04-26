@@ -4,35 +4,57 @@ from AylinRobot import AylinRobot as app
 import requests
 import os
 
-# Telegram API bilgilerinizi buraya girin
 
 
-# TikTok video URL'inden videoyu indiren fonksiyon
+
+
+
+# TikTok video indirme işlevi
 def download_tiktok_video(url):
+    # TikTok video bağlantısını kullanarak videoyu indir
     response = requests.get(url)
-    filename = "tiktok_video.mp4"
-    with open(filename, 'wb') as f:
-        f.write(response.content)
-    return filename
+    if response.status_code == 200:
+        video_url = response.json()["itemInfo"]["itemStruct"]["video"]["downloadAddr"]
+        video_data = requests.get(video_url).content
+        return video_data
+    else:
+        return None
 
-# Instagram video URL'inden videoyu indiren fonksiyon
+
+# Instagram video indirme işlevi
 def download_instagram_video(url):
-    # Buraya Instagram video indirme kodunu ekleyin (örneğin, instaloader kullanabilirsiniz)
-    pass
+    # Instagram video bağlantısını kullanarak videoyu indir
+    response = requests.get(url)
+    if response.status_code == 200:
+        video_url = response.text.split('"')[4]
+        video_data = requests.get(video_url).content
+        return video_data
+    else:
+        return None
 
-# TikTok ve Instagram video URL'lerini algılayan filtre
-@app.on_message(filters.regex(r"(https?://(www\.)?tiktok\.com/.+)|(https?://(www\.)?instagram\.com/.+)"))
-def save_videos(client, message: Message):
-    chat_id = message.chat.id
-    video_url = message.text
 
-    if "tiktok.com" in video_url:
-        filename = download_tiktok_video(video_url)
-    elif "instagram.com" in video_url:
-        filename = download_instagram_video(video_url)
 
-    # İndirilen videoyu Telegram'a gönderme
-    client.send_video(chat_id, video=filename)
 
-    # İndirilen videoyu temizleme
-    os.remove(filename)
+
+# Video bağlantısını işleme
+@app.on_message(filters.text & filters.private)
+def handle_video_link(_, message: Message):
+    text = message.text.strip()
+
+    # TikTok veya Instagram video bağlantısı olup olmadığını kontrol edin
+    if "tiktok.com" in text:
+        video_data = download_tiktok_video(text)
+        if video_data:
+            message.reply_video(video_data)
+        else:
+            message.reply_text("Üzgünüm, TikTok video indirilemedi.")
+    elif "instagram.com" in text:
+        video_data = download_instagram_video(text)
+        if video_data:
+            message.reply_video(video_data)
+        else:
+            message.reply_text("Üzgünüm, Instagram video indirilemedi.")
+    else:
+        message.reply_text("Geçersiz video bağlantısı. Lütfen TikTok veya Instagram video bağlantısı paylaşın.")
+
+
