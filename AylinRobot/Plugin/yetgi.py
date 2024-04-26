@@ -4,12 +4,12 @@ from pyrogram.types import *
 import os, io, time
 
 
-@app.on_message(filters.command(["admins","adminlist"],  ["/", ".", "?", "!"]))
+@app.on_message(filters.command(["alist"],  ["/", ".", "?", "!"]))
 async def admins(_, message):
     chat_id = message.chat.id
     user_id = message.from_user.id
     if message.chat.type == enums.ChatType.PRIVATE:
-         return await message.reply("`This Command work Only In Groups!`")
+         return await message.reply("`Bu Əmr Yalnız Qruplarda işləyir !`")
     users = "👮 **Admins**:\n"
     bots = "\n🤖 **Bots**:\n"
     async for admin in app.get_chat_members(chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
@@ -23,7 +23,7 @@ async def admins(_, message):
 @app.on_message(filters.command("ban",  ["/", ".", "?", "!"]))
 async def ban(_, message):
     if message.chat.type == enums.ChatType.PRIVATE:
-        await message.reply_text("Work only on groups!")
+        await message.reply_text("Yalnız qruplarda işləyin !")
     else:
         try:
             if len(message.text.split()) > 1:
@@ -35,25 +35,25 @@ async def ban(_, message):
                                  get = await app.get_users(user_id)
                                  await app.ban_chat_member(chat_id, get.id)
                                  return await message.reply(
-                                 f'Banned {get.mention}!')
+                                 f'Qadağan edilib  {get.mention}!')
                             else:
-                                 await message.reply_text(text = "**Your missing the admin rights `can_restrict_members`**")
+                                 await message.reply_text(text = "**İdarəçi hüquqlarınız çatışmır `can_restrict_members `**")
                         except Exception as e:
                                return await message.reply(str(e))                    
             else:
                 get = await app.get_chat_member(message.chat.id, message.from_user.id)
                 reply = message.reply_to_message
                 if not message.reply_to_message:
-                    return await message.reply_text("**Reply someone to ban.**")
+                    return await message.reply_text("**Kiməsə qadağaya cavab verin .**")
                 if not get.privileges:
-                    return await message.reply("**You Needs Admin Rights to Control Me (~_^)!**")
+                    return await message.reply("**Mənə nəzarət etmək üçün Admin Hüquqlarına ehtiyacınız var  (~_^)!**")
                 if get.privileges.can_restrict_members:
                      chat_id = message.chat.id
                      user_id  = message.reply_to_message.from_user.id
                      await app.ban_chat_member(chat_id, user_id)
-                     await message.reply_text(text= "**Banned {}!**".format(reply.from_user.mention))
+                     await message.reply_text(text= "**Qadağan edildi {}!**".format(reply.from_user.mention))
                 else:
-                     await message.reply_text(text = "**Your missing the admin rights `can_restrict_members`**")
+                     await message.reply_text(text = "**Sizdə admin hüquqları yoxdur  `can_restrict_members`**")
         except Exception as errors:
            return await message.reply(f"**Error**: {errors}")
 
@@ -61,7 +61,7 @@ async def ban(_, message):
 @app.on_message(filters.command("unban",  ["/", ".", "?", "!"]))
 async def unban(_, message):
     if message.chat.type == enums.ChatType.PRIVATE:
-        await message.reply_text("Work only on groups!")
+        await message.reply_text("Yalnız qruplarda işləyin !")
     else:
         try:
             if len(message.text.split()) > 1:
@@ -73,25 +73,25 @@ async def unban(_, message):
                                  get = await app.get_users(user_id)
                                  await app.unban_chat_member(chat_id, get.id)
                                  return await message.reply(
-                                'Fine, they can join again.')
+                                'Yaxşı, yenidən qoşula bilərlər .')
                             else:
-                                await message.reply_text(text = "**Your missing the admin rights `can_restrict_members`**")
+                                await message.reply_text(text = "**Sizdə admin hüquqları yoxdur  `can_restrict_members`**")
                         except Exception as e:
                                return await message.reply(str(e))                    
             else:
                 get = await app.get_chat_member(message.chat.id, message.from_user.id)
                 reply = message.reply_to_message
                 if not message.reply_to_message:
-                    return await message.reply_text("**Reply someone to unban**")
+                    return await message.reply_text("**Qadağanı ləğv etmək üçün kiməsə cavab verin **")
                 if not get.privileges:
-                    return await message.reply("**You Needs Admin Rights to Control Me (~_^)!**")
+                    return await message.reply("**MeMənə nəzarət etmək üçün Admin Hüquqlarına ehtiyacınız var  (~_^)!**")
                 if get.privileges.can_restrict_members:
                      chat_id = message.chat.id
                      user_id  = message.reply_to_message.from_user.id
                      await app.unban_chat_member(chat_id, user_id)
-                     await message.reply_text(text= "**Fine, they can join again.**")
+                     await message.reply_text(text= "**Yaxşı, onlar yenidən qoşula bilərlər .**")
                 else:
-                     await message.reply_text(text = "**Your missing the admin rights `can_restrict_members`**")
+                     await message.reply_text(text = "**Sizdə admin hüquqları yoxdur  `can_restrict_members`**")
         except Exception as errors:
            return await message.reply(f"**Error**: {errors}")
 
@@ -110,37 +110,37 @@ async def kick(_, message):
                          return await message.reply(
                          f'Kicked {get.mention}!')
                     else:
-                         await message.reply_text(text = "**Your missing the admin rights `can_restrict_members`**")
+                         await message.reply_text(text = "**Sizdə admin hüquqları yoxdur  `can_restrict_members`**")
                 except Exception as e:
                    return await message.reply(str(e))                    
         else:
             if not message.reply_to_message:
-                   return await message.reply("**Reply someone to kick.**")
+                   return await message.reply("**Kiməsə təpik atmağa cavab verin .**")
             get = await app.get_chat_member(message.chat.id,message.from_user.id)
             reply = message.reply_to_message
             if not get.privileges:
-                  return await message.reply("**You need to be an admin to do this.**")
+                  return await message.reply("**Bunu etmək üçün admin olmalısınız .**")
             if get.privileges.can_restrict_members:
                 chat_id = message.chat.id
                 user_id  = message.reply_to_message.from_user.id
                 await app.ban_chat_member(chat_id, user_id)
                 await app.unban_chat_member(chat_id, user_id)
-                await message.reply_text(text= "**Kicked {}!**".format(reply.from_user.mention))
+                await message.reply_text(text= "**Təpiklə  {}!**".format(reply.from_user.mention))
             else:
-                await message.reply_text(text = "**Your missing the admin rights `can_restrict_members`**")
+                await message.reply_text(text = "**Sizdə admin hüquqları yoxdur  `can_restrict_members`**")
 
 
 @app.on_message(filters.command("demote", ["/", ".", "?", "!"]))
 async def demotes(_, message):
    try:
        if not message.reply_to_message:
-             return await message.reply("**Reply to Someone.**")
+             return await message.reply("**Kiməsə cavab verin .**")
        chat_id = message.chat.id
        admin = message.from_user
        user = message.reply_to_message.from_user
        check = await app.get_chat_member(chat_id, admin.id)
        if check.privileges.can_promote_members:
-            msg = await message.reply("**Demoting Process.**")
+            msg = await message.reply("**Aşağılama Prosesi.**" )
             await message.chat.promote_member(
                user_id=user.id,
                privileges=pyrogram.types.ChatPrivileges(
@@ -153,7 +153,7 @@ async def demotes(_, message):
                can_manage_chat=False,
                can_manage_video_chats=False    
 ))
-            await msg.edit(f"""**Demoted by Admin**:\n**{admin.mention}**
+            await msg.edit(f"""**Admin tərəfindən aşağı salındı **:\n**{admin.mention}**
 **Demoted User:** **{user.mention}**""")
    except Exception as errors:
            await message.reply(f"**Error**: {errors}")
@@ -165,7 +165,7 @@ async def demotes(_, message):
 async def promoting(_, message):
      global new_admin
      if not message.reply_to_message:
-         return await message.reply("**Reply someone To Promoting.**")
+         return await message.reply("**Təbliğat üçün kiməsə cavab verin .**")
      reply = message.reply_to_message
      chat_id = message.chat.id
      new_admin = reply.from_user
@@ -173,15 +173,15 @@ async def promoting(_, message):
      user_stats = await app.get_chat_member(chat_id, admin.id)
      bot_stats = await app.get_chat_member(chat_id, "self")
      if not bot_stats.privileges:
-         return await message.reply("**Lol! Make Me Admin When!**")
+         return await message.reply("**lol! Nə vaxt məni admin et !**")
      elif not user_stats.privileges:
-         return await message.reply("**You Needs Admin Rights to Control Me (~_^)!**")
+         return await message.reply("**Mənə nəzarət etmək üçün Admin Hüquqlarına ehtiyacınız var  (~_^)!**")
      elif not bot_stats.privileges.can_promote_members:
-         return await message.reply("**I'm missing the admin rights `can_promote_members`**")
+         return await message.reply("**Admin hüquqlarını itirmişəm  `can_promote_members`**")
      elif not user_stats.privileges.can_promote_members:
-         return await message.reply("**Your missing the admin rights `can_promote_members`**")
+         return await message.reply("**Sizdə admin hüquqları yoxdur  `can_promote_members`**")
      elif user_stats.privileges.can_promote_members:
-          msg = await message.reply_text("**Promoting Process.**")
+          msg = await message.reply_text("**Təşviq Prosesi .**")
           await app.promote_chat_member(
             chat_id,
             new_admin.id,
@@ -193,10 +193,10 @@ async def promoting(_, message):
             can_manage_video_chats=True,
             can_restrict_members=True
 ))
-          await msg.edit(f"""**Promoted Admin**:\n**{admin.mention}**
+          await msg.edit(f"""**Təşviq edilmiş Admin **:\n**{admin.mention}**
           **New Admin:**\n**{new_admin.mention}** """,
-              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Demote", callback_data="demote"),
-                                                        InlineKeyboardButton(text="Delete", callback_data="close")]]))
+              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Aşağı salmaq ", callback_data="demote"),
+                                                        InlineKeyboardButton(text="Sil ", callback_data="close")]]))
                                
      
                      
@@ -218,10 +218,10 @@ async def demoting(_, query):
             can_manage_chat=False,
             can_manage_video_chats=False    
 ))
-                  await query.message.edit(f"""**Demote by Admin:**\n** {query.from_user.mention}**
-**Demoted Admin:**\n**{new_admin.mention}**""")    
+                  await query.message.edit(f"""**Admin tərəfindən aşağı salın :**\n** {query.from_user.mention}**
+**Vəzifəsi aşağı salınmış Admin :**\n**{new_admin.mention}**""")    
          else:
-               await query.answer("You can't Demote!", show_alert=True )
+               await query.answer("Siz aşağı edə bilməzsiniz !", show_alert=True )
                     
         
 @app.on_message(filters.command("del", ["/", ".", "?", "!"]))
