@@ -11,20 +11,22 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 #--------------------------------------------------------------
 
 
-aiohttpsession = ClientSession()
+# AylinRobot/Plugin/Carbon.py
 
+from aiohttp import ClientSession
 
-async def get_http_status_code(url: str) -> int:
-    async with aiohttpsession.head(url) as resp:
-        return resp.status
-    
+aiohttpsession: ClientSession | None = None
 
-async def make_carbon(code):
-    url = "https://carbonara.vercel.app/api/cook"
-    async with aiohttpsession.post(url, json={"code": code}) as resp:
-        image = BytesIO(await resp.read())
-    image.name = "carbon.png"
-    return image
+async def init_aiohttp():
+    global aiohttpsession
+    if aiohttpsession is None:
+        aiohttpsession = ClientSession()
+
+async def close_aiohttp():
+    global aiohttpsession
+    if aiohttpsession:
+        await aiohttpsession.close()
+        aiohttpsession = None
 
 @app.on_message(filters.command("carbon"))
 async def carbon_func(client, msg):
