@@ -13,11 +13,11 @@ class Config:
 
    API_ID = int(os.getenv("API_ID", "23860620"))
    API_HASH = os.getenv("API_HASH", "347c94d92d0bbcfbc223651b73d71345")
-   BOT_TOKEN = os.getenv("BOT_TOKEN", "7182384783:AAHogeEu6feZ-hDAuSXLvh4GqRxf_7XT6PM")
+   BOT_TOKEN = os.getenv("BOT_TOKEN", "7182384783:AAFKlt0UWsxcq18WP3KnIm9cuccrvQiSoSI")
    BOT_USERNAME = os.environ.get("BOT_USERNAME", "OldMultiBot")
    BOT_NAME = os.environ.get("BOT_NAME", "OLD MULTİ BOT")   
    OWNER_ID = int(os.environ.get("OWNER_ID","6413040743"))
-   OWNER_NAME = os.environ.get("OWNER_NAME", "Tanimiramkimem") 
+   OWNER_NAME = os.environ.get("OWNER_NAME", "teamabasof") 
    BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", "True"))
    MONGODB_URI = os.environ.get("MONGODB_URI", "mongodb+srv://music:music@cluster0.sh6h4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002050222287"))
